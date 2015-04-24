@@ -855,7 +855,7 @@ chd_error cdrom_parse_metadata(chd_file *chd, cdrom_toc *toc)
 	}
 
 	/* TODO: I don't know why sometimes the data is one endian and sometimes another */
-	if (((INT32 *)toc->numtrks < 0) || (toc->numtrks > CD_MAX_TRACKS))
+	if (((INT32)toc->numtrks < 0) || (toc->numtrks > CD_MAX_TRACKS))
 	{
 		toc->numtrks = FLIPENDIAN_INT32(toc->numtrks);
 		for (i = 0; i < CD_MAX_TRACKS; i++)
