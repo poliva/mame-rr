@@ -1,0 +1,3 @@
+Please read the compile instructions from here: http://mame-rr.googlecode.com/files/mame-rr-0139-test2-src.7z
+
+I'll try to fix all this as soon as I can!
