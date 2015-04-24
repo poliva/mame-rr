@@ -51,7 +51,7 @@
     GLOBAL VARIABLES
 ***************************************************************************/
 
-static const char dummy_text[2] = { 0 };
+//static const char dummy_text[2] = { 0 };
 
 #ifdef __cplusplus
 static const astring dummy_astring;

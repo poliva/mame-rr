@@ -96,7 +96,7 @@ INLINE UINT16 fetch_16bit(UINT8 *v)
 
 INLINE UINT32 fetch_32bit(UINT8 *v)
 {
-	return BIG_ENDIANIZE_INT32(*(UINT32 *)v);
+	return BIG_ENDIANIZE_INT32(*v);
 }
 
 
@@ -115,7 +115,7 @@ INLINE void put_16bit(UINT8 *v, UINT16 data)
 
 INLINE void put_32bit(UINT8 *v, UINT32 data)
 {
-	*(UINT32 *)v = BIG_ENDIANIZE_INT32(data);
+	*v = BIG_ENDIANIZE_INT32(data);
 }
 
 

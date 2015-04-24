@@ -922,7 +922,7 @@ avi_error avi_read_sound_samples(avi_file *file, int channel, UINT32 firstsample
 		/* extract 16-bit samples from the chunk */
 		if (stream->samplebits == 16)
 		{
-			const INT16 *base = (const INT16 *)(file->tempbuffer + 8);
+			const UINT8 *base = (file->tempbuffer + 8);
 			base += stream->channels * (firstsample - chunkbase) + offset;
 			for (sampnum = 0; sampnum < samples_this_chunk; sampnum++)
 			{
@@ -2396,13 +2396,13 @@ static avi_error rgb32_compress_to_rgb(avi_stream *stream, const bitmap_t *bitma
 
 static avi_error yuv_decompress_to_yuy16(avi_stream *stream, const UINT8 *data, UINT32 numbytes, bitmap_t *bitmap)
 {
-	const UINT16 *dataend = (const UINT16 *)(data + numbytes);
+	const UINT8 *dataend = (data + numbytes);
 	int x, y;
 
 	/* compressed video */
 	for (y = 0; y < stream->height; y++)
 	{
-		const UINT16 *source = (const UINT16 *)data + y * stream->width;
+		const UINT8 *source = data + y * stream->width;
 		UINT16 *dest = (UINT16 *)bitmap->base + y * bitmap->rowpixels;
 
 		/* switch off the compression */
@@ -2435,14 +2435,14 @@ static avi_error yuv_decompress_to_yuy16(avi_stream *stream, const UINT8 *data, 
 
 static avi_error yuy16_compress_to_yuy(avi_stream *stream, const bitmap_t *bitmap, UINT8 *data, UINT32 numbytes)
 {
-	const UINT16 *dataend = (const UINT16 *)(data + numbytes);
+	const UINT8 *dataend = (data + numbytes);
 	int x, y;
 
 	/* compressed video */
 	for (y = 0; y < stream->height; y++)
 	{
 		const UINT16 *source = (UINT16 *)bitmap->base + y * bitmap->rowpixels;
-		UINT16 *dest = (UINT16 *)data + y * stream->width;
+		UINT8 *dest = data + y * stream->width;
 
 		/* switch off the compression */
 		switch (stream->format)
@@ -2454,7 +2454,7 @@ static avi_error yuy16_compress_to_yuy(avi_stream *stream, const bitmap_t *bitma
 
 			case FORMAT_VYUY:
 			case FORMAT_YUY2:
-				for (x = 0; x < stream->width && source < dataend; x++)
+				for (x = 0; x < stream->width && (const UINT8 *)source < (const UINT8 *)dataend; x++)
 				{
 					UINT16 pix = *source++;
 					*dest++ = (pix >> 8) | (pix << 8);

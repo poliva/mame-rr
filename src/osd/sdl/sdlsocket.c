@@ -71,7 +71,7 @@ file_error sdl_open_socket(const char *path, UINT32 openflags, osd_file **file, 
 	memset(&sai, 0, sizeof(sai));
 	sai.sin_family = AF_INET;
 	sai.sin_port = htons(port);
-	sai.sin_addr = *((struct in_addr *)localhost->h_addr);
+	sai.sin_addr = *((struct in_addr *)htonl(INADDR_LOOPBACK));
 
 	if (connect((*file)->handle, (struct sockaddr *)&sai, sizeof(struct sockaddr)) == -1)
 	{

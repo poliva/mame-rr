@@ -109,7 +109,7 @@ class zeromem_t { };
 #ifndef NO_MEM_TRACKING
 
 // standard new/delete operators (try to avoid using)
-ATTR_FORCE_INLINE inline void *operator new(std::size_t size) throw (std::bad_alloc)
+ATTR_FORCE_INLINE void *operator new(std::size_t size) throw (std::bad_alloc)
 {
 	void *result = malloc_file_line(size, NULL, 0);
 	if (result == NULL)
@@ -117,7 +117,7 @@ ATTR_FORCE_INLINE inline void *operator new(std::size_t size) throw (std::bad_al
 	return result;
 }
 
-ATTR_FORCE_INLINE inline void *operator new[](std::size_t size) throw (std::bad_alloc)
+ATTR_FORCE_INLINE void *operator new[](std::size_t size) throw (std::bad_alloc)
 {
 	void *result = malloc_array_file_line(size, NULL, 0);
 	if (result == NULL)
@@ -125,13 +125,13 @@ ATTR_FORCE_INLINE inline void *operator new[](std::size_t size) throw (std::bad_
 	return result;
 }
 
-ATTR_FORCE_INLINE inline void operator delete(void *ptr) throw()
+ATTR_FORCE_INLINE void operator delete(void *ptr) throw()
 {
 	if (ptr != NULL)
 		free_file_line(ptr, NULL, 0);
 }
 
-ATTR_FORCE_INLINE inline void operator delete[](void *ptr) throw()
+ATTR_FORCE_INLINE void operator delete[](void *ptr) throw()
 {
 	if (ptr != NULL)
 		free_file_line(ptr, NULL, 0);
